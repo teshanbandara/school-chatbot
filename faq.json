@@ -1,0 +1,55 @@
+{
+  "faqs": [
+    {
+      "question": "What are the school hours?",
+      "answer": "Our regular school hours are Monday through Friday from 8:00 AM to 3:30 PM. The office is open from 7:30 AM to 4:00 PM on weekdays.",
+      "keywords": ["hours", "time", "schedule", "open", "office hours", "school day"]
+    },
+    {
+      "question": "How do I enroll my child?",
+      "answer": "To enroll your child, please visit our main office with the following documents: birth certificate, immunization records, previous school transcripts (if applicable), and proof of residence. You can also start the process online through our school portal.",
+      "keywords": ["enroll", "enrollment", "register", "registration", "admission", "new student", "documents"]
+    },
+    {
+      "question": "What is the dress code policy?",
+      "answer": "Students are expected to dress appropriately for a learning environment. Clothing should be clean, modest, and not disruptive. Specific guidelines include: no offensive language or images, appropriate length for shorts/skirts, closed-toe shoes required, and no hats inside buildings.",
+      "keywords": ["dress code", "uniform", "clothing", "attire", "what to wear", "shoes", "hats"]
+    },
+    {
+      "question": "How do I contact a teacher?",
+      "answer": "You can contact teachers through several methods: email (available in the school directory), phone calls to the main office (555-123-4567), parent-teacher communication apps, or by scheduling an appointment. Most teachers respond within 24-48 hours during school days.",
+      "keywords": ["contact teacher", "email teacher", "call teacher", "appointment", "communication", "parent teacher"]
+    },
+    {
+      "question": "What subjects do you offer?",
+      "answer": "We offer a comprehensive curriculum including: English Language Arts, Mathematics, Science, Social Studies, Physical Education, Art, Music, Computer Science, Foreign Languages (Spanish and French), and various electives for upper grades.",
+      "keywords": ["subjects", "curriculum", "classes", "courses", "what do you teach", "programs", "academics"]
+    },
+    {
+      "question": "When is the school calendar available?",
+      "answer": "The academic calendar is typically published by April for the following school year. It includes important dates like first/last day of school, holidays, professional development days, and parent-teacher conference dates. You can find it on our website under 'Calendar' section.",
+      "keywords": ["calendar", "schedule", "dates", "holidays", "vacation", "important dates", "school year"]
+    },
+    {
+      "question": "How does lunch work?",
+      "answer": "We offer both school lunch and the option to bring lunch from home. School lunches cost $3.50 for regular meals and $2.50 for reduced-price meals. Free lunch is available for qualifying families. Lunch is served from 11:30 AM to 1:00 PM in rotating periods by grade level.",
+      "keywords": ["lunch", "cafeteria", "food", "meal", "cost", "free lunch", "bring lunch", "lunch time"]
+    },
+    {
+      "question": "What are the transportation options?",
+      "answer": "We provide bus transportation for students living more than 1 mile from school. Bus routes are established based on enrollment. Parents can also drop off/pick up students, or students can walk/bike if they live nearby. Car line runs from 3:15-3:45 PM.",
+      "keywords": ["bus", "transportation", "pickup", "drop off", "car line", "walk", "bike", "routes"]
+    },
+    {
+      "question": "How do I report an absence?",
+      "answer": "Please report absences by 9:00 AM on the day of absence. You can call our attendance line at (555) 123-4567, email attendance@school.edu, or use our parent portal. For planned absences, please notify us in advance when possible.",
+      "keywords": ["absence", "absent", "sick", "report absence", "attendance", "missing school", "call in"]
+    },
+    {
+      "question": "What extracurricular activities are available?",
+      "answer": "We offer many activities including: Sports (basketball, soccer, track), Academic clubs (Math Olympiad, Science Fair), Arts programs (Drama club, Band, Choir), Student Council, Yearbook committee, and various seasonal activities. Most activities start in September with sign-ups in late August.",
+      "keywords": ["activities", "extracurricular", "clubs", "sports", "after school", "programs", "band", "drama", "student council"]
+    },
+    {
+      "question": "How can parents volunteer?",
+      "answer": "We welcome parent volunteers! Opportunities include: classroom helpers, field trip chaperones, special event assistance, library helpers, and PTA activities. All volunteers must complete a background check form. Contact our volunteer coordinator at volunteer@school.

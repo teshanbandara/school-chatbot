@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Assistant Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-content">
+                <i class="fas fa-graduation-cap header-icon"></i>
+                <h1>School Assistant</h1>
+                <p>Ask me anything about our school!</p>
+            </div>
+        </header>
+
+        <!-- Chat Container -->
+        <div class="chat-container">
+            <!-- Chat Messages Area -->
+            <div class="chat-messages" id="chatMessages">
+                <!-- Welcome Message -->
+                <div class="message bot-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-text">
+                            Hello! I'm your school assistant. I can help you with questions about:
+                            <ul>
+                                <li>School hours and schedules</li>
+                                <li>Academic programs and courses</li>
+                                <li>Enrollment and admissions</li>
+                                <li>School policies and procedures</li>
+                                <li>Events and activities</li>
+                            </ul>
+                            What would you like to know?
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Input Area -->
+            <div class="chat-input-container">
+                <form id="chatForm" class="chat-form">
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="userInput" 
+                            placeholder="Type your question here..." 
+                            required
+                            autocomplete="off"
+                        >
+                        <button type="submit" id="sendButton" class="send-button">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div class="loading" id="loading" style="display: none;">
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2024 School Assistant Chatbot | Need immediate help? Contact the school office at (555) 123-4567</p>
+        </footer>
+    </div>
+
+    <script>
+        class ChatBot {
+            constructor() {
+                this.chatMessages = document.getElementById('chatMessages');
+                this.chatForm = document.getElementById('chatForm');
+                this.userInput = document.getElementById('userInput');
+                this.sendButton = document.getElementById('sendButton');
+                this.loading = document.getElementById('loading');
+                
+                this.initializeEventListeners();
+            }
+
+            initializeEventListeners() {
+                // Form submission
+                this.chatForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.sendMessage();
+                });
+
+                // Enter key handling
+                this.userInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        this.sendMessage();
+                    }
+                });
+            }
+
+            async sendMessage() {
+                const question = this.userInput.value.trim();
+                
+                if (!question) {
+                    return;
+                }
+
+                // Clear input and disable form
+                this.userInput.value = '';
+                this.setFormEnabled(false);
+
+                // Add user message to chat
+                this.addMessage(question, 'user');
+
+                // Show loading
+                this.showLoading(true);
+
+                try {
+                    // Send request to backend
+                    const response = await fetch('/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ question: question })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // Add bot response
+                        this.addMessage(data.answer, 'bot');
+                    } else {
+                        // Handle error
+                        this.addMessage(data.error || 'Sorry, something went wrong. Please try again.', 'bot', true);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    this.addMessage('Sorry, I\'m having trouble connecting right now. Please try again later.', 'bot', true);
+                } finally {
+                    // Hide loading and re-enable form
+                    this.showLoading(false);
+                    this.setFormEnabled(true);
+                    this.userInput.focus();
+                }
+            }
+
+            addMessage(text, sender, isError = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}-message ${isError ? 'error-message' : ''}`;
+
+                const avatar = document.createElement('div');
+                avatar.className = 'message-avatar';
+                avatar.innerHTML = sender === 'user' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
+
+                const content = document.createElement('div');
+                content.className = 'message-content';
+
+                const textDiv = document.createElement('div');
+                textDiv.className = 'message-text';
+                
+                // Convert newlines to <br> and preserve formatting
+                textDiv.innerHTML = text.replace(/\n/g, '<br>');
+
+                const timestamp = document.createElement('div');
+                timestamp.className = 'message-timestamp';
+                timestamp.textContent = new Date().toLocaleTimeString();
+
+                content.appendChild(textDiv);
+                content.appendChild(timestamp);
+                
+                messageDiv.appendChild(avatar);
+                messageDiv.appendChild(content);
+
+                this.chatMessages.appendChild(messageDiv);
+                
+                // Scroll to bottom
+                this.scrollToBottom();
+            }
+
+            setFormEnabled(enabled) {
+                this.userInput.disabled = !enabled;
+                this.sendButton.disabled = !enabled;
+            }
+
+            showLoading(show) {
+                this.loading.style.display = show ? 'flex' : 'none';
+                if (show) {
+                    this.scrollToBottom();
+                }
+            }
+
+            scrollToBottom() {
+                // Only auto-scroll if user is near the bottom
+                const isNearBottom = this.chatMessages.scrollTop + this.chatMessages.clientHeight >= this.chatMessages.scrollHeight - 100;
+                
+                if (isNearBottom) {
+                    setTimeout(() => {
+                        this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+                    }, 100);
+                }
+            }
+        }
+
+        // Initialize chatbot when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new ChatBot();
+        });
+
+        // Add some sample questions for demonstration
+        function askSampleQuestion(question) {
+            const userInput = document.getElementById('userInput');
+            userInput.value = question;
+            userInput.focus();
+        }
+    </script>
+</body>
+</html>
